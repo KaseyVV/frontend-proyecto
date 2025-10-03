@@ -1,0 +1,27 @@
+{
+  "name": "proyecto-final-2025",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaseyVV/Proyecto-Final-GameTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaseyVV/Proyecto-Final-GameTracker/issues"
+  },
+  "homepage": "https://github.com/KaseyVV/Proyecto-Final-GameTracker#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.0"
+  }
+}
