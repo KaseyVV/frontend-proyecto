@@ -1,0 +1,23 @@
+.detalle-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px;
+  background-color: #101820;
+  color: white;
+}
+
+.detalle-img {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.detalle-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.descripcion {
+  margin-top: 15px;
+  color: #b0c4de;
+}

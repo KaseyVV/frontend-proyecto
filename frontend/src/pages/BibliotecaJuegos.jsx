@@ -1,51 +1,33 @@
-import { useEffect, useState } from "react";
-import { obtenerJuegos } from "../api.js";
+import { useEffect } from "react";
+import TarjetaJuego from "../components/TarjetaJuego.jsx";
+import './BibliotecaJuegos.css'
+import { ObtenerJuegos } from '../api'
+import { useNavigate } from "react-router-dom";
 
 function BibliotecaJuegos() {
-  const [juegos, setJuegos] = useState([]);
-
-  useEffect(() => {
-  const cargarJuegos = async () => {
-    try {
-      const data = await obtenerJuegos();
-      console.log("📦 Juegos recibidos:", data);
-      setJuegos(data);
-    } catch (error) {
-      console.error("Error al obtener los juegos:", error);
-    }
-  };
-  cargarJuegos();
-  }, []);
+    const [juegos, setJuegos] = React.useState([]);
+    const navigate = useNavigate();
 
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Mi Biblioteca de Juegos</h1>
-      <div style={{ display: "grid", gap: "15px", gridTemplateColumns: "repeat(auto-fill, 250px)" }}>
-        {juegos.map((juego) => (
-          <div
-            key={juego._id}
-            style={{
-              border: "1px solid #333",
-              borderRadius: "10px",
-              padding: "10px",
-              backgroundColor: "#1b2838",
-              color: "#fff",
-            }}
-          >
-            <img
-              src={juego.imagenPortada}
-              alt={juego.titulo}
-              style={{ width: "100%", borderRadius: "8px", marginBottom: "10px" }}
-            />
-            <h3>{juego.titulo}</h3>
-            <p>{juego.genero} • {juego.plataforma}</p>
-            <small>{juego.añoLanzamiento}</small>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    useEffect(() => {
+        const cargar = async () => {
+            setJuegos(data);
+        };
+    cargar();
+    }, []);
+
+    return (
+        <div className="biblioteca-container">
+            <h1>Mi Biblioteca</h1>
+            <div className="juegos-grid">
+                {juegos.map((juego) => (
+                    <TarjetaJuego
+                    key={juego.id}
+                    onClick={() => navigate(`/juego/${juego.id}`)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 }
-
 export default BibliotecaJuegos;

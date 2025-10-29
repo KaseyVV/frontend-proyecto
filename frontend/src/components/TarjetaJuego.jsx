@@ -1,14 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import "./TarjetaJuego.css";
 
-function TarjetaJuego({ juego }) {
-  if (!juego) return null;
-
+function TarjetaJuego({ juego, onClick }) {
   return (
-    <div style={{ border: '1px solid #ccc', padding: 12, borderRadius: 8 }}>
-      <h3>{juego.titulo}</h3>
-      <p>{juego.descripcion}</p>
-      <Link to={`/juego/${juego.id}`}>Ver detalles</Link>
+    <div className="tarjeta" onClick={onClick}>
+      <img src={juego.imagenPortada} alt={juego.titulo} />
+      <div className="tarjeta-info">
+        <h3>{juego.titulo}</h3>
+      </div>
     </div>
   );
 }

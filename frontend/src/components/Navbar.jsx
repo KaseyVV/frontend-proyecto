@@ -1,30 +1,53 @@
-import { Link } from "react-router-dom";
+import "./Navbar.css";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
+  const location = useLocation();
+
   return (
-    <nav style={styles.nav}>
-      <h2>🎮 GameTracker</h2>
-      <div style={styles.links}>
-        <Link to="/">Biblioteca</Link>
-        <Link to="/estadisticas">Estadísticas</Link>
+    <nav className="navbar">
+      <div className="navbar-logo">
+        <Link to="/" className="navbar-title">
+          🎮 GameTracker
+        </Link>
+      </div>
+
+      <ul className="navbar-links">
+        <li>
+          <Link
+            to="/"
+            className={location.pathname === "/" ? "active" : ""}
+          >
+            Inicio
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/biblioteca"
+            className={location.pathname === "/biblioteca" ? "active" : ""}
+          >
+            Biblioteca
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/estadisticas"
+            className={location.pathname === "/estadisticas" ? "active" : ""}
+          >
+            Estadísticas
+          </Link>
+        </li>
+      </ul>
+      <div className="navbar-icons">
+        <button className="icon-btn">
+          ⚙️
+        </button>
+        <div className="user-avatar">
+          <span>👤</span>
+        </div>
       </div>
     </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px",
-    backgroundColor: "#0e141b",
-    color: "#00c8ff",
-  },
-  links: {
-    display: "flex",
-    gap: "20px",
-  },
-};
 
 export default Navbar;

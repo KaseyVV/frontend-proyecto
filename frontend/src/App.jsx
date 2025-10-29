@@ -1,14 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
-import BibliotecaJuegos from "./pages/BibliotecaJuegos.jsx";
-import EstadisticasPersonales from "./pages/EstadisticasPersonales.jsx";
 
 function App() {
   return (
-    <div>
-      <h1>🎮 GameTracker</h1>
-      <p>Bienvenido a tu biblioteca de juegos</p>
-    </div>
+    <Router>
+      <Navbar />
+      <div style={{ marginTop: "70px" }}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        
+      </Routes>
+      </div>
+    </Router>
   );
 }
 

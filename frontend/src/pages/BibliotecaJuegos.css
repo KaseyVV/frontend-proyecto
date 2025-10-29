@@ -1,0 +1,13 @@
+.biblioteca-container {
+  padding: 30px;
+  background-color: #101820;
+  color: white;
+  min-height: 100vh;
+}
+
+.juegos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
