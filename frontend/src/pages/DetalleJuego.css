@@ -1,23 +1,77 @@
-.detalle-container {
+.detalle-juego {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #0e141b;
+  color: #e0e6eb;
+}
+
+.detalle-header {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  padding: 40px;
-  background-color: #101820;
-  color: white;
+  align-items: flex-start;
+  margin-bottom: 40px;
 }
 
-.detalle-img {
-  width: 400px;
-  border-radius: 10px;
+.detalle-imagen {
+  width: 420px;
+  height: 240px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .detalle-info {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
 }
 
-.descripcion {
-  margin-top: 15px;
-  color: #b0c4de;
+.detalle-info h1 {
+  color: #00aaff;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.detalle-descripcion {
+  color: #b0bec5;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.detalle-datos p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.detalle-reseñas {
+  border-top: 1px solid #1f2a36;
+  padding-top: 30px;
+}
+
+.detalle-reseñas h2 {
+  color: #00aaff;
+  margin-bottom: 15px;
+}
+
+.reseña-item {
+  background-color: #1f2a36;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  transition: transform 0.2s;
+}
+
+.reseña-item:hover {
+  transform: translateY(-3px);
+}
+
+.reseña-calificación {
+  font-size: 0.9rem;
+  color: #7a8a9b;
+}
+
+.detalle-sinreseñas {
+  font-style: italic;
+  color: #9aa6b1;
 }

@@ -3,6 +3,8 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import BibliotecaJuegos from "./pages/BibliotecaJuegos.jsx";
+import DetalleJuego from "./pages/DetalleJuego.jsx";
+
 import './App.css';
 
 
@@ -16,7 +18,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/biblioteca" element={<BibliotecaJuegos />} />
-     
+            <Route path="/juego/:id" element={<DetalleJuego />} />
+            
           </Routes>
         </div>
         <Footer />

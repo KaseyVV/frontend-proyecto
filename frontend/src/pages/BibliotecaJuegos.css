@@ -1,8 +1,8 @@
 .biblioteca {
-  padding: 40px;
+  padding: 70px;
   background-color: #0f1115;
   color: #eaeaea;
-  min-height: 100vh;
+  min-height: auto;
   font-family: "Poppins", sans-serif;
 }
 

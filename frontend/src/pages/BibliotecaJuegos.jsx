@@ -8,36 +8,34 @@ import './BibliotecaJuegos.css';
 
 function BibliotecaJuegos() {
     const [juegos, setJuegos] = useState([]);
-    const navigate = useNavigate();
-
+    const [cargando, setCargando] = useState(true)
 
     useEffect(() => {
-        const cargarJuegos = async () => {
-            try {
-                const data = await obtenerJuegos();
-                setJuegos(data);
-            } catch (error) {
-                console.log("Error al cargar juegos", error);
-            }
+        const cargar = async () => {
+            const data = await obtenerJuegos();
+            setJuegos(data);
+            setCargando(false);
         }; 
-        cargarJuegos();
+        cargar();
     }, []);
+
+    if (cargando) return <p className="biblioteca-vacia">Cargando....</p>
 
     return (
         <div className="biblioteca">
             <div className="biblioteca-header">
                 <h1>Mi Biblioteca de Juegos</h1>
-                <botton className="btn-agregar" onClick ={() => navigate("/nuevo")}> + Agragar Juegos </botton>
+                <botton className="btn-agregar" onClick ={() => useNavigate("/nuevo")}> + Agregar Juegos </botton>
             </div>
         
 
             <div className="biblioteca-grid">
-                {juegos.length === 0 ? (
+                {juegos.length > 0 ? (
                     juegos.map((juego) => (
                         <TarjetaJuego 
-                            key={juego.id}
+                            key={juego._id}
                             juego={juego}
-                            onClick={() => navigate(`/juego/${juego.id}`)}
+                            onClick={() => useNavigate(`/juego/${juego._id}`)}
                         />
                     ))
                 ) : (

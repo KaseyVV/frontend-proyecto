@@ -1,24 +1,51 @@
-.tarjeta {
-  background-color: #1b2838;
+.tarjeta-juego {
+  text-decoration: none;
+  background-color: #1a1f25;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.tarjeta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+.tarjeta-juego:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.5);
 }
 
-.tarjeta img {
+.tarjeta-imagen {
   width: 100%;
-  height: 160px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0000;
+}
+
+.tarjeta-imagen img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .tarjeta-info {
-  padding: 10px;
+  padding: 12px;
   text-align: center;
-  background-color: #0f1722;
+}
+
+.tarjeta-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #eaeaea;
+  transition: color 0.3s;
+}
+
+.tarjeta-info p {
+  font-size: 0.95rem;
+  color: #b0bec5;
+}
+
+.tarjeta-juego:hover .targeta-info h3 {
+  color: #00aaff;
 }
