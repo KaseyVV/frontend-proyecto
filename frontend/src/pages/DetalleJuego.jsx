@@ -13,15 +13,16 @@ function DetalleJuego() {
     useEffect(() => {
         const cargarJuego = async () => {
             try {
-                const data = await obtenerJuegoPorId(id);
-                setJuego(data);
-            } catch (err) {
-                console.log("Error al cargar el juego", err);
-            } finally {
-                setCargando(false);
-            }
-        };
-        cargarJuego();
+            const data = await obtenerJuegoPorId(id);
+            console.log("🎮 Datos del juego recibido:", data);
+            setJuego(data);
+        } catch (error) {
+            console.error("❌ Error al obtener el juego:", error);
+        } finally {
+        setCargando(false);
+        }
+     };
+    cargarJuego();
     }, [id]);
 
     if (cargando) return <p className="detalle-cargando">Cargando...</p>;
@@ -51,10 +52,10 @@ function DetalleJuego() {
                 <h2>Reseñas</h2>
                 {juego.reseñas && juego.reseñas.length > 0 ? (
                     <ul>
-                        {juego.reseñas.map((reseña, index) => (
+                        {juego.reseas.map((reseña, index) => (
                             <li key={index} className="reseña-item">
                                 <p><strong>{reseña.autor || "Anonimo"}</strong> {reseña.comentario} </p>
-                                <p className="reseña-calificacion">Calificación: ⭐{reseña.calificacion}/5 - {" "}
+                                <p className="reseña-calificacion">Calificación: ⭐{puntuacion}/5⭐ - {" "}
                                     {new Date(reseña.fecha).toLocaleDateString()}
                                 </p>
                             </li>
@@ -64,7 +65,7 @@ function DetalleJuego() {
                     <p className="detalle-sinreseña">No hay reseñas para este juego.</p>
                 )}
 
-                <FormularioReseña juegoId={juego._id}/>
+                <FormularioReseña juegoId={juego._id} />
             </div>
         </div>
     );

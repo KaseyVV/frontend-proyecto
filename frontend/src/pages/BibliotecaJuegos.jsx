@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { obtenerJuegos } from "../api.js";
 import TarjetaJuego from "../components/TarjetaJuego.jsx";
+import FormularioJuego from "./FormularioJuego.jsx";
 import './BibliotecaJuegos.css';
 
 
@@ -9,23 +9,35 @@ import './BibliotecaJuegos.css';
 function BibliotecaJuegos() {
     const [juegos, setJuegos] = useState([]);
     const [cargando, setCargando] = useState(true)
+    const [mostrarModal, setMostrarModal] = useState (false);
 
     useEffect(() => {
-        const cargar = async () => {
-            const data = await obtenerJuegos();
-            setJuegos(data);
-            setCargando(false);
+        const cargarJuegos = async () => {
+            try {
+                const data = await obtenerJuegos();
+                setJuegos(data);
+                setCargando(false);
+            } catch (error) {
+                console.error("Error al cargar los juegos:", error);
+            }
         }; 
-        cargar();
+        cargarJuegos();
     }, []);
 
     if (cargando) return <p className="biblioteca-vacia">Cargando....</p>
+
+    const handleJuegoAgregado = async () => {
+        const data = await obtenerJuegos();
+        setJuegos(data);
+        setMostrarModal(false);
+        setCargando(true);
+    };
 
     return (
         <div className="biblioteca">
             <div className="biblioteca-header">
                 <h1>Mi Biblioteca de Juegos</h1>
-                <botton className="btn-agregar" onClick ={() => useNavigate("/nuevo")}> + Agregar Juegos </botton>
+                <botton className="btn-agregar" onClick ={() => setMostrarModal(true)}> + Agregar Juegos </botton>
             </div>
         
 
@@ -40,6 +52,13 @@ function BibliotecaJuegos() {
                     ))
                 ) : (
                     <p className="biblioteca-vacia">No hay juegos en tu biblioteca. ¡Agrega algunos!</p>
+                )}
+
+                {mostrarModal && (
+                    <FormularioJuego 
+                        onClose={() => setMostrarModal(false)} 
+                        onJuegoAgregado={handleJuegoAgregado}
+                    />
                 )}
             </div>
         </div>

@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/juegos";
+const API_URL = "http://localhost:3000/api";
 
 export const obtenerJuegos = async () => {
-  const res = await axios.get(API_URL);
+  const res = await axios.get(`${API_URL}/juegos`);
   return res.data;
 };
 
-export const obtenerJuegoPorId = async (_id) => {
-  const res = await axios.get(`${API_URL}/${_id}`);
+export const obtenerJuegoPorId = async (id) => {
+  const res = await axios.get(`${API_URL}/juegos/${id}`);
   return res.data;
-}
+};

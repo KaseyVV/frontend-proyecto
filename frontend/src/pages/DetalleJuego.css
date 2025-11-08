@@ -1,7 +1,7 @@
 .detalle-juego {
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  padding: 40px;
+  padding: 80px;
   background-color: #0e141b;
   color: #e0e6eb;
 }
@@ -66,12 +66,29 @@
   transform: translateY(-3px);
 }
 
-.reseña-calificación {
+.reseña-calificacion {
   font-size: 0.9rem;
   color: #7a8a9b;
 }
 
-.detalle-sinreseñas {
+.detalle-sinreseña {
   font-style: italic;
   color: #9aa6b1;
+}
+
+.btn-regresar {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #00aaff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.btn-regresar:hover {
+  background-color: #008ecc;
 }
