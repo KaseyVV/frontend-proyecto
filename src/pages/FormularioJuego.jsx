@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./FormularioJuego.css";
 
+const API_URL = "http://localhost:3000/api/juegos"
+
 const generosDisponibles = [
   "Acción", "Aventura", "RPG", "Estrategia", "Simulación",
   "Deportes", "Carreras", "Terror", "Puzzle", "Multijugador"
@@ -9,6 +11,10 @@ const generosDisponibles = [
 
 const plataformasDisponibles = [
   "PC", "PlayStation", "Xbox", "Nintendo Switch", "Mobile"
+];
+
+const dificultadesDisponibles = [
+  "Fácil", "Normal", "Difícil"
 ];
 
 const FormularioJuego = ({ onClose, onJuegoAgregado }) => {
@@ -39,11 +45,13 @@ const FormularioJuego = ({ onClose, onJuegoAgregado }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/juegos", juego);
+      const res = await axios.post(API_URL, juego);
+      console.log("Juego agregado:", res.data);
       onJuegoAgregado();
+      onClose();
     } catch (err) {
       console.error("Error al agregar el juego:", err);
-      alert("Hubo un error al guardar el juego ❌");
+      alert("❌ Hubo un error al guardar el juego.");
     }
   };
 
@@ -86,6 +94,21 @@ const FormularioJuego = ({ onClose, onJuegoAgregado }) => {
                 </div>
               ))}
             </div>
+
+            <label>Dificultad</label>
+            <select
+              name="dificultad"
+              value={juego.dificultad}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccionar dificultad</option>
+              {dificultadesDisponibles.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
 
             <label>Plataforma</label>
             <select

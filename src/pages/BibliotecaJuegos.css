@@ -35,7 +35,7 @@
 
 .contenedor-juegos {
   width: 100%;
-  max-width: 1200px;
+  max-width: auto;
   min-height: 400px;
   background: #181922;
   border-radius: 12px;

@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { obtenerJuegoPorId } from "../api.js";
-import FormularioReseña from "../components/FormularioReseña.jsx";
 import './DetalleJuego.css';
 
-function DetalleJuego() {
+const API_URL = "http://localhost:3000/api/juegos";
+
+const DetalleJuego = () => {
     const { id } = useParams();
     const [juego, setJuego] = useState(null);
     const [cargando, setCargando] = useState(true);
+    const [puntuacion, setPuntuacion] = useState(0);
+    const [horas, setHoras] = useState(0);
+    const [mostrarModal, setMostrarModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const cargarJuego = async () => {
             try {
             const data = await obtenerJuegoPorId(id);
+            setPuntuacion(data.puntuacion || 0);
+            setHoras(data.horasJugadas || 0);
             console.log("🎮 Datos del juego recibido:", data);
             setJuego(data);
         } catch (error) {
@@ -28,45 +35,94 @@ function DetalleJuego() {
     if (cargando) return <p className="detalle-cargando">Cargando...</p>;
     if (!juego) return <p className="detalle-error">Juego no encontrado.</p>;
 
+    const manejarHoras = async (valor) => {
+        const horasNum = Number(valor);
+        setHoras(horasNum);
+        try {
+            await axios.put(`${API_URL}/${id}`, { horasJugadas: horasNum });
+        } catch (error) {
+            console.error("❌ Error al actualizar horas jugadas:", error);
+        }
+    };
+
+    const manejarPuntuacion = async (valor) => {
+        try {
+            setPuntuacion(valor);
+            await axios.put(`${API_URL}/${id}`, { puntuacion: valor });
+        } catch (error) {
+            console.error("❌ Error al actualizar la puntuación:", error);
+        }
+    };
+
+    const eliminarJuego = async () => {
+        try {
+            await axios.delete(`${API_URL}/${id}`);
+            alert("Juego eliminado exitosamente.");
+            navigate("/biblioteca");
+        } catch (error) {
+            console.error("❌ Error al eliminar el juego:", error);
+            alert("Error al eliminar el juego.");
+        }
+    };
+
+    const editarJuego = () => {
+        navigate(`/editar-juego/${id}`);
+    };
+
     return (
         <div className="detalle-juego">
-            <div className="detalle-header">
-                <button className="btn-regresar" onClick={() => navigate(-1)}>← Regresar</button>
-                <img src={juego.imagenPortada} alt={juego.titulo} className="detalle-imagen" />
+            <botton className="btn-volver" onClick={() => navigate(-1)}>Volver</botton>
+            <div className="detalle-contenido">
+                <div className="detalle-imagen">
+                <img src={juego.imagenPortada} alt={juego.titulo} />
+                <div className="puntuacion">
+                    {[1, 2, 3, 4, 5].map((num) => (
+                    <span
+                        key={num}
+                        className={num <= puntuacion ? "estrella activa" : "estrella inactiva"}
+                        onClick={() => manejarPuntuacion(num)}
+                    >
+                        ★
+                    </span>
+                    ))}
+                </div>
+                </div>
 
                 <div className="detalle-info">
-                    <h1>{juego.titulo}</h1>
-                    <p className="detalle-descripcion">{juego.descripcion}</p>
-            
-                    <div className="detalle-datos">
-                        <p><strong>Género:</strong>{juego.genero}</p>
-                        <p><strong>Plataforma:</strong> {juego.plataforma}</p>
-                        <p><strong>Año de Lanzamiento:</strong> {juego.añoLanzamiento}</p>
-                        <p><strong>Desarrollador:</strong> {juego.desarrollador}</p>
-                        <p><strong>Dificultad:</strong>{juego.dificultad || "Normal"}</p>
+                    <h2>{juego.titulo}</h2>
+                    <p><strong>Género:</strong> {juego.genero}</p>
+                    <p><strong>Plataforma:</strong> {juego.plataforma}</p>
+                    <p><strong>Año de Lanzamiento:</strong> {juego.añoLanzamiento}</p>
+                    <p><strong>Desarrollador:</strong> {juego.desarrollador}</p>
+                    <p><strong>Descripción:</strong> {juego.descripcion}</p>
+
+                    <div className="horas-jugadas">
+                        <strong>Horas Jugadas:</strong>
+                        <input
+                        type="number"
+                        value={horas}
+                        onChange={(e) => manejarHoras(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="botones">
+                        <button className="boton editar" onClick={editarJuego}>✏️ Editar</button>
+                        <button className="boton eliminar" onClick={() => setMostrarModal(true)}>🗑️ Eliminar</button>
                     </div>
                 </div>
             </div>
 
-            <div className="detalle-reseñas">
-                <h2>Reseñas</h2>
-                {juego.reseñas && juego.reseñas.length > 0 ? (
-                    <ul>
-                        {juego.reseas.map((reseña, index) => (
-                            <li key={index} className="reseña-item">
-                                <p><strong>{reseña.autor || "Anonimo"}</strong> {reseña.comentario} </p>
-                                <p className="reseña-calificacion">Calificación: ⭐{puntuacion}/5⭐ - {" "}
-                                    {new Date(reseña.fecha).toLocaleDateString()}
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="detalle-sinreseña">No hay reseñas para este juego.</p>
-                )}
-
-                <FormularioReseña juegoId={juego._id} />
-            </div>
+            {mostrarModal && (
+                <div className="modal-fondo">
+                    <div className="modal">
+                        <h3>¿Eliminar este juego?</h3>
+                        <div className="modal-botones">
+                        <button className="confirmar" onClick={eliminarJuego}>Sí, eliminar</button>
+                        <button className="cancelar" onClick={() => setMostrarModal(false)}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

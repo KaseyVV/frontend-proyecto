@@ -50,7 +50,7 @@ const BibliotecaJuegos = () => {
             <h3>⚠️ No se pudo conectar con el servidor</h3>
             <p>Verifica si el backend está encendido.</p>
           </div>
-        ) : juegos.length === 0 ? (
+        ) : juegos.length > 0 ? (
           <div className="biblioteca-grid">
             {juegos.map((juego) => (
               <TarjetaJuego key={juego._id} juego={juego} />
