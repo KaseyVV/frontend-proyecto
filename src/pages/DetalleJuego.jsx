@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { obtenerJuegoPorId } from "../api.js";
+import FormularioResenia from "../components/FormularioResenia.jsx";
+import ListaResenias from "../components/ListaResenia.jsx";
 import './DetalleJuego.css';
 
 const API_URL = "http://localhost:3000/api/juegos";
@@ -123,8 +125,11 @@ const DetalleJuego = () => {
                     </div>
                 </div>
             )}
+            <FormularioResenia juegoId={juego._id}/>
+            <ListaResenias juegoId={juego._id}/>
         </div>
     );
+
 }
 
 export default DetalleJuego;

@@ -1,0 +1,53 @@
+.formulario-reseña {
+  margin-top: 40px;
+  background: #1b1d22;
+  padding: 30px;
+  border-radius: 15px;
+  color: #f5f5f5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 900px;
+}
+
+.formulario-reseña h3 {
+  color: #00b3ff;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.formulario-reseña form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario-reseña input,
+.formulario-reseña textarea,
+.formulario-reseña select {
+  background: #2c2f36;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.formulario-reseña textarea {
+  resize: none;
+  height: 120px;
+}
+
+.formulario-reseña button {
+  background: #00b3ff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.formulario-reseña button:hover {
+  background: #0095ff;
+}
