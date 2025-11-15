@@ -3,18 +3,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { obtenerJuegoPorId } from "../api.js";
 import FormularioResenia from "../components/FormularioResenia.jsx";
+import FormularioJuego from "../components/FormularioJuego.jsx";
 import ListaResenias from "../components/ListaResenia.jsx";
 import './DetalleJuego.css';
 
 const API_URL = "http://localhost:3000/api/juegos";
 
-const DetalleJuego = () => {
+function DetalleJuego() {
     const { id } = useParams();
     const [juego, setJuego] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [puntuacion, setPuntuacion] = useState(0);
     const [horas, setHoras] = useState(0);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [editarModal, setEditarModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,10 +69,6 @@ const DetalleJuego = () => {
         }
     };
 
-    const editarJuego = () => {
-        navigate(`/editar-juego/${id}`);
-    };
-
     return (
         <div className="detalle-juego">
             <botton className="btn-volver" onClick={() => navigate(-1)}>Volver</botton>
@@ -97,6 +95,7 @@ const DetalleJuego = () => {
                     <p><strong>Año de Lanzamiento:</strong> {juego.añoLanzamiento}</p>
                     <p><strong>Desarrollador:</strong> {juego.desarrollador}</p>
                     <p><strong>Descripción:</strong> {juego.descripcion}</p>
+                    <p><strong>Completado:</strong> {juego.completado ? "Sí" : "No"}</p>
 
                     <div className="horas-jugadas">
                         <strong>Horas Jugadas:</strong>
@@ -108,7 +107,7 @@ const DetalleJuego = () => {
                     </div>
 
                     <div className="botones">
-                        <button className="boton editar" onClick={editarJuego}>✏️ Editar</button>
+                        <button className="boton editar" onClick={() => setEditarModal(true)}>✏️ Editar</button>
                         <button className="boton eliminar" onClick={() => setMostrarModal(true)}>🗑️ Eliminar</button>
                     </div>
                 </div>
@@ -125,6 +124,19 @@ const DetalleJuego = () => {
                     </div>
                 </div>
             )}
+
+            {editarModal && (
+                <div className="modal-fondo">
+                    <div className="modal-editar">
+                        <h3>Editar Juego</h3>
+                        <FormularioJuego
+                            juegoExistente={juego}
+                            cerrarModal={() => setEditarModal(false)}
+                        />
+                    </div>
+                </div>
+            )}
+
             <FormularioResenia juegoId={juego._id}/>
             <ListaResenias juegoId={juego._id}/>
         </div>
