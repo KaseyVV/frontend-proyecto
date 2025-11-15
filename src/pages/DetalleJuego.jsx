@@ -69,6 +69,8 @@ function DetalleJuego() {
         }
     };
 
+    
+
     return (
         <div className="detalle-juego">
             <botton className="btn-volver" onClick={() => navigate(-1)}>Volver</botton>
