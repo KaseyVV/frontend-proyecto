@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { obtenerJuegoPorId } from "../api.js";
 import FormularioResenia from "../components/FormularioResenia.jsx";
-import FormularioJuego from "../components/FormularioJuego.jsx";
 import ListaResenias from "../components/ListaResenia.jsx";
 import './DetalleJuego.css';
 
@@ -16,7 +15,6 @@ function DetalleJuego() {
     const [puntuacion, setPuntuacion] = useState(0);
     const [horas, setHoras] = useState(0);
     const [mostrarModal, setMostrarModal] = useState(false);
-    const [editarModal, setEditarModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -127,20 +125,9 @@ function DetalleJuego() {
                 </div>
             )}
 
-            {editarModal && (
-                <div className="modal-fondo">
-                    <div className="modal-editar">
-                        <h3>Editar Juego</h3>
-                        <FormularioJuego
-                            juegoExistente={juego}
-                            cerrarModal={() => setEditarModal(false)}
-                        />
-                    </div>
-                </div>
-            )}
-
             <FormularioResenia juegoId={juego._id}/>
             <ListaResenias juegoId={juego._id}/>
+            
         </div>
     );
 
